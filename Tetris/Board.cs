@@ -95,7 +95,7 @@ namespace Tetris
 		/// <summary>
 		/// Decrease block-dropping duration after 3 stacks of non-full row
 		/// </summary>
-		public int spdMinus = 2;
+		public int spdMinus = 0;
 
         #endregion variables
 
@@ -199,15 +199,16 @@ namespace Tetris
 		/// </summary>
 		private void activespdMinus()
 		{
-			if(haveThreeRow ())
-			if (spdMinus == 0) {
-				currentBlock.y--;
-				spdMinus++;
-			} else if (spdMinus == 1) {
-				currentBlock.y--;
-				spdMinus++;
-			} else if (spdMinus >= 2) {
-				spdMinus = 0;
+			if (haveThreeRow ()) {
+				if (spdMinus == 0) {
+					currentBlock.y--;
+					spdMinus++;
+				} else if (spdMinus == 1) {
+					currentBlock.y--;
+					spdMinus++;
+				} else if (spdMinus >= 2) {
+					spdMinus = 0;
+				}
 			}
 		}
 

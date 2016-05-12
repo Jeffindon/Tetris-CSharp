@@ -192,6 +192,7 @@ namespace Tetris
             {
                 if (input.downKeyPressed)
                 {
+					board.spdMinus = 2;
                     board.lowerBlock();
                 }
                 if (input.leftKeyPressed)
