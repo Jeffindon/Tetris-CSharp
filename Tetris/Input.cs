@@ -41,11 +41,17 @@ namespace Tetris
             else if (key == rotateKey)
             {
                 rotateKeyPressed = pressed;
+<<<<<<< HEAD
 			} 
 			else if (key == swapKey) 
 			{
 				swapKeyPressed = pressed;				
 			}
+=======
+			} else if (key == swapKey) {
+				swapKeyPressed = pressed;				
+			} 
+>>>>>>> swap-block
         }
 
         #region variables
@@ -102,7 +108,11 @@ namespace Tetris
         public Boolean downKeyPressed { get; set; }
 
 		/// <summary>
+<<<<<<< HEAD
 		/// Indicates whether the swap key is pressed or not
+=======
+		/// Indicates whether the space key is pressed or not
+>>>>>>> swap-block
 		/// </summary>
 		public Boolean swapKeyPressed { get; set; }
 
