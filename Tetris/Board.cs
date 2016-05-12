@@ -273,7 +273,7 @@ namespace Tetris
                 for (int col = 0; col < numberOfColumns; col++)
                 {
                     // and overwriting the current position with the one above
-                    if (chance == 25) // on a 25% chance
+                    if (chance <= 25) // on a 25% chance
                     {
                         // remove rows above the full row (like a bomb)
                         board[col, row] = board[col, 1];
