@@ -206,7 +206,10 @@ namespace Tetris
                 if (input.rotateKeyPressed)
                 {
                     board.rotateBlock();
-                }
+				}
+				if (input.swapKeyPressed) {
+					board.swapBlock ();
+				}
                 updateBoard();
             }
         }
