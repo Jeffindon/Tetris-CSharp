@@ -17,6 +17,7 @@ namespace Tetris
             rotateKeyPressed = false;
 			downKeyPressed = false;
 			swapKeyPressed = false;
+			pauseKeyPressed = false;
         }
 
         /// <summary>
@@ -45,6 +46,10 @@ namespace Tetris
 			else if (key == swapKey) 
 			{
 				swapKeyPressed = pressed;				
+			}
+			else if (key == pauseKey) 
+			{
+				pauseKeyPressed = pressed;				
 			}
         }
 
@@ -77,6 +82,11 @@ namespace Tetris
 		/// </summary>
 		public readonly char swapKey = 'x';
 
+		/// <summary>
+		/// The key to pause the block
+		/// </summary>
+		public readonly char pauseKey = 'p';
+
         #endregion keys
 
         #region keyStatuses
@@ -105,6 +115,11 @@ namespace Tetris
 		/// Indicates whether the space key is pressed or not
 		/// </summary>
 		public Boolean swapKeyPressed { get; set; }
+
+		/// <summary>
+		/// Indicates whether the pause key is pressed or not
+		/// </summary>
+		public Boolean pauseKeyPressed { get; set; }
 
         #endregion keyStatuses
 

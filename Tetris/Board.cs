@@ -77,6 +77,11 @@ namespace Tetris
 		/// </summary>
 		public Block storedBlock;
 
+		/// <summary>
+		/// Check is pause or not.
+		/// </summary>
+		public bool ispause = false;
+
         /// <summary>
         /// The number of visible columns on the board
         /// </summary>
@@ -108,14 +113,15 @@ namespace Tetris
         /// Ticks the board forward one move
         /// </summary>
         public void tick()
-        {
-            if (currentBlock == null || !canDropFurther())
-            {
-                spawnBlock();
-            }
+		{
+			if (!ispause) {
+				if (currentBlock == null || !canDropFurther ()) {
+					spawnBlock ();
+				}
 
-            lowerBlock();
-            manageFullRows();
+				lowerBlock ();
+				manageFullRows ();
+			}
         }
 
         #region board

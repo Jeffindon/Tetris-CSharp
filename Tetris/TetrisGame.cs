@@ -18,7 +18,8 @@ namespace Tetris
         public TetrisGame()
         {
             InitializeComponent();
-            createSquares();
+			createSquares(squares);
+			createSquares(pauseSquares);
             blocksetList.DataSource = BlockLoader.names();
         }
 
@@ -54,6 +55,11 @@ namespace Tetris
         /// </summary>
         Dictionary<string, Square> squares = new Dictionary<string,Square>();
 
+		/// <summary>
+		/// The squares that are for pause game on the board
+		/// </summary>
+		Dictionary<string, Square> pauseSquares = new Dictionary<string,Square>();
+
         /// <summary>
         /// The keybord input for the game
         /// </summary>
@@ -72,7 +78,8 @@ namespace Tetris
             numberOfRows = (int)boardRowsSelect.Value;
             numberOfColumns = (int)boardColsSelect.Value;
             board = new Board(numberOfRows, numberOfColumns, blocksetList.Text);
-            createSquares();
+			createSquares(squares);
+			createSquares(pauseSquares);
             tickTimer.Enabled = true;
             playing = true;
         }
@@ -108,13 +115,13 @@ namespace Tetris
         /// <summary>
         /// Creates the squares which make up the visible portion of the board
         /// </summary>
-        private void createSquares()
+		private void createSquares(Dictionary<string, Square> sqr)
         {
-            foreach (KeyValuePair<String,Square> val in squares)
+			foreach (KeyValuePair<String,Square> val in sqr)
             {
                 val.Value.Dispose();
             }
-            squares.Clear();
+			sqr.Clear();
 
             for (int row = 0; row < numberOfRows; row++)
             {
@@ -127,7 +134,7 @@ namespace Tetris
                     square.Top = row * squareDimensions;
                     square.Left = col * squareDimensions;
 
-                    squares.Add(squaresKey(row, col), square);
+					sqr.Add(squaresKey(row, col), square);
                 }
             }
         }
@@ -166,6 +173,23 @@ namespace Tetris
             }
         }
 
+		private void updatepauseboard(){
+			Square pauseSquare;
+			for (int row = 0; row < numberOfRows; row++)
+			{
+				for (int col = 0; col < numberOfColumns; col++)
+				{
+					pauseSquares.TryGetValue(squaresKey(row, col), out pauseSquare);
+					pauseSquare.color = Color.PeachPuff.ToArgb();
+					if (col != numberOfColumns) {
+						col++;
+						pauseSquares.TryGetValue(squaresKey(row, col), out pauseSquare);
+						pauseSquare.color = board.currentBlock.color.ToArgb();	
+					}
+				}
+			}
+		}
+
         #endregion GUI
 
         #region input
@@ -189,26 +213,40 @@ namespace Tetris
         {
             textBox1.Text = e.KeyChar.ToString();
             if (playing)
-            {
-                if (input.downKeyPressed)
-                {
-					board.spdMinus = 2;
-                    board.lowerBlock();
-                }
-                if (input.leftKeyPressed)
-                {
-                    board.moveBlockLeft();
-                }
-                if (input.rightKeyPressed)
-                {
-                    board.moveBlockRight();
-                }
-                if (input.rotateKeyPressed)
-                {
-                    board.rotateBlock();
+			{
+				if (!board.ispause) {
+					if (input.downKeyPressed) {
+						board.spdMinus = 2;
+						board.lowerBlock ();
+					}
+					if (input.leftKeyPressed) {
+						board.moveBlockLeft ();
+					}
+					if (input.rightKeyPressed) {
+						board.moveBlockRight ();
+					}
+					if (input.rotateKeyPressed) {
+						board.rotateBlock ();
+					}
+					if (input.swapKeyPressed) {
+						board.swapBlock ();
+					}
 				}
-				if (input.swapKeyPressed) {
-					board.swapBlock ();
+				if (input.pauseKeyPressed) {
+					if (board.ispause) {
+						board.ispause = false;		
+						Dictionary<string, Square> sqr = new Dictionary<string,Square>();
+						sqr = squares;
+						squares = pauseSquares;
+						pauseSquares = sqr;
+					}else{
+						board.ispause = true;
+						Dictionary<string, Square> sqr = new Dictionary<string,Square>();
+						sqr = squares;
+						squares = pauseSquares;
+						pauseSquares = sqr;
+						updatepauseboard ();
+					}
 				}
                 updateBoard();
             }
