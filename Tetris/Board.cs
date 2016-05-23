@@ -315,13 +315,6 @@ namespace Tetris
         /// </summary>
         public void rotateBlock()
         {
-			if (downPress == 1) {
-				do{
-					currentBlock.y++;
-				}while(canDropFurther());
-				downPress = 0;
-			}
-		
 			if (canRotate ()) {
 				currentBlock.rotateClockwise ();
 				switchColor ();
@@ -333,10 +326,19 @@ namespace Tetris
         /// </summary>
         public void lowerBlock()
         {
-            if (canDropFurther())
-                currentBlock.y++;
-			activespdMinus ();
-			
+			if (downPress == 1) {
+				if (canDropFurther ()) {
+					do {
+						currentBlock.y++;
+					} while(canDropFurther ());
+				}
+				downPress = 0;
+			} else {
+
+				if (canDropFurther ())
+					currentBlock.y++;
+				activespdMinus ();
+			}
         }
 
         /// <summary>
