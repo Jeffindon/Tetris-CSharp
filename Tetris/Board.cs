@@ -100,7 +100,7 @@ namespace Tetris
         /// <summary>
         /// Random chance to blow upper rows
         /// </summary>
-        Random bomb = new Random();
+        Random rng = new Random();
 
 		/// <summary>
 		/// Decrease block-dropping duration after 3 stacks of non-full row
@@ -277,8 +277,9 @@ namespace Tetris
         /// <param name="row">The row in terms of board[col, row] to remove</param>
         private void removeRow(int rowToRemove)
         {
-            // bomb chance of 100%
-            int chance = bomb.Next(1, 100);
+            // chance of 100%
+            int chance = rng.Next(1, 100);
+            int randomRows = rng.Next(1, numberOfRows - 5);
 
             if (rowToRemove == 0)
                 return;
@@ -294,6 +295,11 @@ namespace Tetris
                     {
                         // remove rows above the full row (like a bomb)
                         board[col, row] = board[col, 1];
+                    }
+                    else if (chance <= 50) // on a 50% chance
+                    {
+                        // replace a random row into invisible rows
+                        board[col, numberOfRowsTotal - randomRows] = board[col, row];
                     }
                     else
                     {
