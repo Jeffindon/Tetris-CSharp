@@ -310,8 +310,10 @@ namespace Tetris
         /// </summary>
         public void rotateBlock()
         {
-            if (canRotate())
-                currentBlock.rotateClockwise();
+			if (canRotate ()) {
+				currentBlock.rotateClockwise ();
+				switchColor ();
+			}
         }
 
         /// <summary>
@@ -376,6 +378,18 @@ namespace Tetris
             return 0;
         }
 
+
+		private void switchColor(){
+			Color[] colorSet = { Color.Red, Color.Blue, Color.Green, Color.Yellow,Color.Cyan, Color.Orange,Color.Purple };
+			Random rnd = new Random();
+
+			int numClr = 0;
+
+			do{
+				numClr = rnd.Next(colorSet.Length);
+			}while(currentBlock.color == colorSet[numClr]);
+			currentBlock.color = colorSet [numClr];
+		}
         #endregion blockMovement
 
         #region blockPositionChecks
