@@ -18,6 +18,7 @@ namespace Tetris
 			downKeyPressed = false;
 			swapKeyPressed = false;
 			pauseKeyPressed = false;
+			speedKeyPressed = false;
         }
 
         /// <summary>
@@ -27,29 +28,20 @@ namespace Tetris
         /// <param name="pressed">Whether the key is pressed or has been lifted</param>
         public void processKey(char key, Boolean pressed)
         {
-            if (key == downKey)
-            {
-                downKeyPressed = pressed;
-            }
-            else if (key == leftKey)
-            {
-                leftKeyPressed = pressed;
-            }
-            else if (key == rightKey)
-            {
-                rightKeyPressed = pressed;
-            }
-            else if (key == rotateKey)
-            {
-                rotateKeyPressed = pressed;
-			} 
-			else if (key == swapKey) 
-			{
+			if (key == downKey) {
+				downKeyPressed = pressed;
+			} else if (key == leftKey) {
+				leftKeyPressed = pressed;
+			} else if (key == rightKey) {
+				rightKeyPressed = pressed;
+			} else if (key == rotateKey) {
+				rotateKeyPressed = pressed;
+			} else if (key == swapKey) {
 				swapKeyPressed = pressed;				
-			}
-			else if (key == pauseKey) 
-			{
+			} else if (key == pauseKey) {
 				pauseKeyPressed = pressed;				
+			} else if (key == speedKey) {
+				speedKeyPressed = pressed;
 			}
         }
 
@@ -76,6 +68,11 @@ namespace Tetris
         /// The key to move the block down one row
         /// </summary>
         public readonly char downKey = 's';
+
+		/// <summary>
+		/// The key to move the block immediately to the bottom of the playfield
+		/// </summary>
+		public readonly char speedKey = 'q';
 
 		/// <summary>
 		/// The key to swap the block
@@ -110,6 +107,11 @@ namespace Tetris
         /// Indicates whether the down key is pressed or not
         /// </summary>
         public Boolean downKeyPressed { get; set; }
+
+		/// <summary>
+		/// Indicates whether the speed key is pressed or not
+		/// </summary>
+		public Boolean speedKeyPressed { get; set; }
 
 		/// <summary>
 		/// Indicates whether the space key is pressed or not

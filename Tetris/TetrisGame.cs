@@ -240,6 +240,11 @@ namespace Tetris
 						board.spdMinus = 2;
 						board.lowerBlock ();
 					}
+					if(input.speedKeyPressed){
+						board.downPress = 1;
+						board.spdMinus = 2;
+						board.lowerBlock ();
+					}
 					if (input.leftKeyPressed) {
 						board.moveBlockLeft ();
 					}

@@ -107,6 +107,11 @@ namespace Tetris
 		/// </summary>
 		public int spdMinus = 0;
 
+		/// <summary>
+		/// Press an external speed key to move the block immediately to the bottom
+		/// </summary>
+		public int downPress = 0;
+
         #endregion variables
 
         /// <summary>
@@ -310,6 +315,13 @@ namespace Tetris
         /// </summary>
         public void rotateBlock()
         {
+			if (downPress == 1) {
+				do{
+					currentBlock.y++;
+				}while(canDropFurther());
+				downPress = 0;
+			}
+		
 			if (canRotate ()) {
 				currentBlock.rotateClockwise ();
 				switchColor ();
