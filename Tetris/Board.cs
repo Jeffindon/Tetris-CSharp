@@ -352,6 +352,30 @@ namespace Tetris
 			}
 		}
 
+        /// <summary>
+        /// A ghost block that imitates the current block
+        /// </summary>
+        /// <param name="blk"></param>
+        /// <returns></returns>
+        public int howFar (Block blk)
+        {
+            if (blk != null)
+            {
+                Boolean canDrop = true;
+                int dropCount = -1;
+                Block whenDropped = blk.Clone();
+                do
+                {
+                    whenDropped.y++;
+                    dropCount++;
+
+                    if (!canBeHere(whenDropped)) canDrop = false;
+                } while (canDrop);
+                return dropCount;
+            }
+            return 0;
+        }
+
         #endregion blockMovement
 
         #region blockPositionChecks

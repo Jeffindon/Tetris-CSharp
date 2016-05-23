@@ -157,6 +157,27 @@ namespace Tetris
 
             // then display the current block
             Block block = board.currentBlock; // cache the block to make the code read a bit better
+
+            int range = board.howFar (block);
+            if (range >= 2)
+            {
+                // Display ghost block
+                for (int row = 0; row < block.squares.GetLength(0); row++)
+                {
+                    for (int col = 0; col < block.squares.GetLength(1); col++)
+                    {
+                        Coordinate coord = new Coordinate(col, row);
+                        coord = block.toBoardCoordinates(coord);
+                        if (block.squares[row, col] && coord.x >= 0 && coord.x < numberOfColumns
+                                && coord.y + range >= board.hiddenRows && coord.y + range < numberOfRows + board.hiddenRows)
+                        {
+                            squares.TryGetValue(squaresKey(coord.y - board.hiddenRows + range, coord.x), out square);
+                            square.color = Color.LightGray.ToArgb();
+                        }
+                    }
+                }
+            }
+
             for (int row = 0; row < block.squares.GetLength(0); row++)
             {
                 for (int col = 0; col < block.squares.GetLength(1); col++)
