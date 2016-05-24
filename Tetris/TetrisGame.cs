@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Tetris;
+using System.Media;
 
 namespace Tetris
 {
@@ -82,6 +83,7 @@ namespace Tetris
 			createSquares(pauseSquares);
             tickTimer.Enabled = true;
             playing = true;
+
         }
 
         /// <summary>
@@ -93,6 +95,14 @@ namespace Tetris
         {
             if (playing)
             {
+
+				if (board.currentBlock == null || !board.canDropFurther ()) {
+					board.spawnBlock ();
+					if (!board.canBeHere (board.currentBlock)) {
+						resetGame ();
+					}
+
+				}
                 board.tick();
                 updateBoard();
                 rowsCleared.Text = board.rowsDestroyed.ToString();

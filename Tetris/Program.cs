@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Tetris
 {
@@ -13,6 +14,7 @@ namespace Tetris
         [STAThread]
         static void Main()
         {
+			
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             TetrisGame tetris = new TetrisGame();

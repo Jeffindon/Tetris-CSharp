@@ -134,7 +134,7 @@ namespace Tetris
         /// <summary>
         /// Creates a new block to play with
         /// </summary>
-        private void spawnBlock()
+        public void spawnBlock()
         {
             // lock the previous block into position
             lockBlock();
@@ -438,7 +438,7 @@ namespace Tetris
         /// </summary>
         /// <param name="block">The block to check</param>
         /// <returns>Whether the block is allowed to be there</returns>
-        private Boolean canBeHere(Block block)
+        public Boolean canBeHere(Block block)
         {
             Boolean canBeHere = true;
 
@@ -491,7 +491,7 @@ namespace Tetris
         /// Checks to see whether the block can drop any futher
         /// </summary>
         /// <returns>Indicates whether the current block can drop any further</returns>
-        private Boolean canDropFurther()
+        public Boolean canDropFurther()
         {
             Boolean canDrop = true;
 
